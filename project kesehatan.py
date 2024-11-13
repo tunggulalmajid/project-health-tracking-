@@ -291,33 +291,43 @@ def cek_user():
     clear()
     cover()
     user,no_telp,jenis_kelamin,umur,list_username,list_password = penampung_user()
-    print ("")
-    print ("USER INFO".center(107))
-    border = ["NO","NAMA", "TELEPON", "JENIS KELAMIN", "UMUR", "USERNAME", "PASSWORD"]
-    garis("=")
-    print (f"|{border[0]:^3}|{border[1]:^20}|{border[2]:^15}|{border[3]:^15}|{border[4]:^7}|{border[5]:^20}|{border[6]:^20}|")
-    garis("=")
-    for i in range (len(user)):
-        print (f"|{i+1:^3}|{user[i]:^20}|{no_telp[i]:^15}|{jenis_kelamin[i]:^15}|{umur[i]:^7}|{list_username[i]:^20}|{list_password[i]:^20}|")
+    print ("\n")
+    if len(user) == 0 :
+        print ("USER TIDAK TERSEDIA\n\n".center(107))
         garis("=")
-    garis("=")
-    enter()
-    menu_admin()
+    else :
+        print ("USER INFO\n\n".center(107))
+        border = ["NO","NAMA", "TELEPON", "JENIS KELAMIN", "UMUR", "USERNAME", "PASSWORD"]
+        garis("=")
+        print (f"|{border[0]:^3}|{border[1]:^20}|{border[2]:^15}|{border[3]:^15}|{border[4]:^7}|{border[5]:^20}|{border[6]:^20}|")
+        garis("=")
+        for i in range (len(user)):
+            print (f"|{i+1:^3}|{user[i]:^20}|{no_telp[i]:^15}|{jenis_kelamin[i]:^15}|{umur[i]:^7}|{list_username[i]:^20}|{list_password[i]:^20}|")
+            garis("=")
+        garis("=")
+        enter()
+        menu_admin()
 
 def cek_tenkes():
     clear()
     cover()
     tenkes, profesi_tenkes, usertenkes, passtenkes = penampung_tenkes()
-    garis("=")
-    border = ["NO","NAMA", "PROFESI", "USERNAME", "PASSWORD"]
-    print (f"|{border[0]:^10}|{border[1]:^25}|{border[2]:^25}|{border[3]:^20}|{border[4]:^20}|")
-    garis("=")
-    for i in range (len(tenkes)):
-        print (f"|{i+1:^10}|{tenkes[i]:^25}|{profesi_tenkes[i]:^25}|{usertenkes[i]:^20}|{passtenkes[i]:^20}|")
+    print ("\n")
+    if len(tenkes) == 0 :
+        print ("TENAGA KESEHATAN TIDAK TERSEDIA\n\n".center(107))
         garis("=")
-    garis("=")
-    enter()
-    menu_admin()
+    else :
+        print ("TENAGA KESEHATAN\n\n".center(107))
+        garis("=")
+        border = ["NO","NAMA", "PROFESI", "USERNAME", "PASSWORD"]
+        print (f"|{border[0]:^10}|{border[1]:^25}|{border[2]:^25}|{border[3]:^20}|{border[4]:^20}|")
+        garis("=")
+        for i in range (len(tenkes)):
+            print (f"|{i+1:^10}|{tenkes[i]:^25}|{profesi_tenkes[i]:^25}|{usertenkes[i]:^20}|{passtenkes[i]:^20}|")
+            garis("=")
+        garis("=")
+        enter()
+        menu_admin()
 
 def tambah_user():
     clear()
@@ -325,13 +335,13 @@ def tambah_user():
     user,no_telp,jenis_kelamin,umur,list_username,list_password = penampung_user()
 
     while True : 
-        nama = input ("masukkan nama lengkap anda >> ") 
-        nomorhp = int (input ("Masukkan nomor HP >> "))
-        jenis_kelamin = input ("Masukkan jenis kelamin (laki-laki/perempuan)>> ") 
-        usia = input ("masukkan usia >> ") 
+        nama = input ("masukkan nama lengkap user >> ") 
+        nomorhp = int (input ("Masukkan nomor HP user >> "))
+        jenis_kelamin = input ("Masukkan jenis kelamin user (laki-laki/perempuan)>> ") 
+        usia = input ("masukkan usia user >> ") 
         while True : 
             try : 
-                username = input ("buat username baru >> ") 
+                username = input ("buat username baru user >> ") 
                 if username in list_username: 
                     raise ValueError ("Username sudah digunakan") 
                 else : 
@@ -340,7 +350,7 @@ def tambah_user():
                 termcolor.cprint (erorr, "red") 
         while True : 
             try : 
-                password = input ("buat password baru >> ")
+                password = input ("buat password baru user >> ")
                 if password == username or len(password) < 8 : 
                     raise ValueError ("Password harus lebih dari 8 karakter dan tidak sama dengan username") 
                 else : 
@@ -383,14 +393,63 @@ def tambah_tenkes():
     enter()
     menu_admin()
 def hapus_user():
-    pass
+    clear()
+    cover()
+    user,no_telp,jenis_kelamin,umur,list_username,list_password = penampung_user()
+    border = ["NO","NAMA", "TELEPON", "JENIS KELAMIN", "UMUR", "USERNAME", "PASSWORD"]
+    garis("=")
+    print (f"|{border[0]:^3}|{border[1]:^20}|{border[2]:^15}|{border[3]:^15}|{border[4]:^7}|{border[5]:^20}|{border[6]:^20}|")
+    garis("=")
+    for i in range (len(user)):
+        print (f"|{i+1:^3}|{user[i]:^20}|{no_telp[i]:^15}|{jenis_kelamin[i]:^15}|{umur[i]:^7}|{list_username[i]:^20}|{list_password[i]:^20}|")
+        garis("=")
+    garis("=")
+    pilih = int(input("masukkan user yang ingin di hapus >> "))
+    user.pop(pilih - 1)
+    no_telp.pop(pilih - 1)
+    jenis_kelamin.pop(pilih - 1)
+    umur.pop(pilih - 1)
+    list_username.pop(pilih - 1)
+    list_password.pop(pilih - 1)
+    with open("data_login/datauser.csv", mode="w", newline="\n") as file:
+        writer = csv.writer(file)
+        for i in range (len(user)):
+            writer.writerow(user[i],no_telp[i],jenis_kelamin[i],umur[i],list_username[i],list_username[i])
+    termcolor.cprint("user berhasil di hapus", "green")
+    enter ()
+    menu_admin()
+
+
 def hapus_tenkes():
-    pass
+    clear()
+    cover()
+    tenkes, profesi_tenkes, usertenkes, passtenkes = penampung_tenkes()
+    garis("=")
+    border = ["NO","NAMA", "PROFESI", "USERNAME", "PASSWORD"]
+    print (f"|{border[0]:^10}|{border[1]:^25}|{border[2]:^25}|{border[3]:^20}|{border[4]:^20}|")
+    garis("=")
+    for i in range (len(tenkes)):
+        print (f"|{i+1:^10}|{tenkes[i]:^25}|{profesi_tenkes[i]:^25}|{usertenkes[i]:^20}|{passtenkes[i]:^20}|")
+        garis("=")
+    garis("=")
+    hapus = int (input ("masukkan no tenkes yang ingin dihapus >> "))
+    tenkes.pop(hapus-1)
+    profesi_tenkes.pop(hapus-1)
+    usertenkes.pop(hapus-1)
+    passtenkes.pop(hapus-1)
+    with open ("data_login/datatenkes.csv", mode = "w", newline = "\n") as file:
+        writer = csv.writer(file)
+        for i in range (len(tenkes)):
+            writer.writerow(tenkes[i], profesi_tenkes[i], usertenkes[i], passtenkes[i])
+    termcolor.cprint("berhasil menghapus tenaga kesehatan", "green")
+    enter()
+    menu_admin()
+
     
 if __name__=="__main__":
     # halaman_awal()
-    # menu_admin()
+    menu_admin()
     # menu_tenkes()
     # menu_user()
     # cek_user()
-    cek_tenkes()
+    # cek_tenkes()
